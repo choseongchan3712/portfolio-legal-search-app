@@ -10,8 +10,16 @@ const lawApi = axios.create({
 
 const constitutionID:string = "001444"; //!헌법ID
 
+const civilLawID:string = "001706"; //! 민법ID
+
 export const getConstitution = () => lawApi.get("", {
   params: {
     ID: constitutionID,
+  },
+});
+
+export const getCicilLaw = () => lawApi.get("", {
+  params: {
+    ID: civilLawID,
   },
 });

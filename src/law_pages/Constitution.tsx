@@ -11,21 +11,63 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     padding: 30px;
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 900;
     color: #2b80e2;
   }
-  .law_detail {
-    padding: 10px;
+
+  .chapter {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    .article {
-      color: #2b80e2;
-      padding-bottom: 10px;
-      font-size: 18px;
-      font-weight: 900;
-    }
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    color: #2b80e2;
+    font-size: 25px;
+    font-weight: 900;
   }
+  .verse {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    color: #2b80e2;
+    font-size: 25px;
+    font-weight: 900;
+  }
+  .section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    color: #2b80e2;
+    font-size: 25px;
+    font-weight: 900;
+  }
+  .article {
+    padding: 15px;
+    color: #2b80e2;
+    font-size: 20px;
+    font-weight: 900;
+  }
+  .article_detail {
+    padding: 0 0 10px 15px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .paragraph {
+    padding: 0 0 10px 15px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .number {
+    padding: 0 0 10px 15px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
 `;
 
 const Constitution = (): JSX.Element => {
@@ -70,7 +112,7 @@ const Constitution = (): JSX.Element => {
 
   return (
     <Container>
-      <div className="lawName">{lawName}</div>
+      <div className="law_name">{lawName}</div>
       <div className="detail_wrap">
         {newLawArr?.map((data: any, index: number) => (
           <div key={index}>
