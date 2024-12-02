@@ -18,7 +18,7 @@ export const getConstitution = () => lawApi.get("", {
   },
 });
 
-export const getCicilLaw = () => lawApi.get("", {
+export const getCivilLaw = () => lawApi.get("", {
   params: {
     ID: civilLawID,
   },
