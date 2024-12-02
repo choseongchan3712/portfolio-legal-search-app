@@ -1,25 +1,50 @@
 import axios from "axios";
 
 const lawApi = axios.create({
-  baseURL:"http://www.law.go.kr/DRF/lawService.do?target=law",
+  baseURL: "http://www.law.go.kr/DRF/lawService.do?target=law",
   params: {
     OC: "choseongchan3712",
     type: "JSON",
   },
 });
 
-const constitutionID:string = "001444"; //!헌법ID
+export const getLawId = (id: string) =>
+  lawApi.get("", {
+    params: {
+      ID: id,
+    },
+  });
 
-const civilLawID:string = "001706"; //! 민법ID
-
-export const getConstitution = () => lawApi.get("", {
+const precedentApi = axios.create({
+  baseURL: "http://www.law.go.kr/DRF/lawSearch.do?target=prec",
   params: {
-    ID: constitutionID,
+    OC: "choseongchan3712",
+    type: "JSON",
+    org: "400201",
+    display: "100",
   },
 });
 
-export const getCivilLaw = () => lawApi.get("", {
+export const getPrecedent = (page: string) =>
+  precedentApi.get("", {
+    params: {
+      page: page,
+    },
+  });
+
+const searchPrecApi = axios.create({
+  baseURL: "http://www.law.go.kr/DRF/lawService.do?target=prec",
   params: {
-    ID: civilLawID,
+    OC: "choseongchan3712",
+    type: "JSON",
+    org: "400201",
+    display: "100",
   },
 });
+
+export const getPrec = (id:string) => searchPrecApi.get("", {
+  params:{
+    ID: `${id}`,
+  },
+});
+

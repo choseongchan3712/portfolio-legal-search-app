@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getConstitution } from "../API/api";
+import { getLawId } from "../API/api";
 
 const Container = styled.div`
   width: 100%;
@@ -67,29 +67,29 @@ const Container = styled.div`
     font-size: 16px;
     font-weight: 700;
   }
-  
 `;
 
-const Constitution = (): JSX.Element => {
-  const [constitution, setConstitution] = useState<any>();
+interface IdProps {
+  id :string;
+}
+
+const LawWrap = ({id}:IdProps): JSX.Element => {
+  const [law, setlaw] = useState<any>();
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await getConstitution();
-        setConstitution(response.data.법령);
+        const response = await getLawId(id);
+        setlaw(response.data.법령);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
 
-  const lawName: string = constitution?.기본정보?.법령명_한글; // !법명
+  const lawName: string = law?.기본정보?.법령명_한글;
 
-  const lawArticle = constitution?.조문?.조문단위;
-
-  const needArticle = lawArticle?.slice(3);
-  console.log(needArticle);
+  const needArticle = law?.조문?.조문단위;
 
   const newLawArr = needArticle?.map(({ 조문내용, 항 }: any) => ({
     장: /제\d+장/.test(조문내용) ? `${조문내용}` : null,
@@ -108,7 +108,6 @@ const Constitution = (): JSX.Element => {
         : null,
     호: 항 && 항.호 ? 항.호.map((data: any) => `${data.호내용}`) || null : null,
   }));
-  console.log(newLawArr);
 
   return (
     <Container>
@@ -151,4 +150,4 @@ const Constitution = (): JSX.Element => {
   );
 };
 
-export default Constitution;
+export default LawWrap;

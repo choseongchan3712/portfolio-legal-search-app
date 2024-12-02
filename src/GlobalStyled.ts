@@ -1,3 +1,4 @@
+
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -6,6 +7,7 @@ ${reset}
 
 *{
   box-sizing: border-box;
+  word-spacing: -1px;
 }
 
 img {

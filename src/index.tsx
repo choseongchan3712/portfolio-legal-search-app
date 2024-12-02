@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { GlobalStyled } from './GlobalStyled';
-import CivilLaw from './law_pages/CivilLaw';
+import Router from './Router';
+// import CivilLaw from './law_pages/CivilLaw';
 // import Constitution from './law_pages/Constitution';
 
 const root = ReactDOM.createRoot(
@@ -11,7 +12,8 @@ root.render(
   <React.StrictMode>
     <GlobalStyled />
     {/* <Constitution /> */}
-    <CivilLaw />
+    {/* <CivilLaw /> */}
+    <Router />
   </React.StrictMode>
 );
 
