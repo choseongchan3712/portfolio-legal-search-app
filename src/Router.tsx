@@ -6,6 +6,7 @@ import Interpretation from "./pages/Interpretation";
 import Search from "./pages/Search";
 import Detail from "./pages/detail/Detail";
 import PrecDetail from "./pages/detail/PrecDetail";
+import InterDetail from "./pages/detail/InterDetail";
 
 const Router = (): JSX.Element => {
   return (
@@ -19,6 +20,7 @@ const Router = (): JSX.Element => {
         <Route path="/search" element={<Search />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/prec_detail/:id" element={<PrecDetail />} />
+        <Route path="/inter_detail/:id" element={<InterDetail />} />
       </Routes>
     </HashRouter>
   );

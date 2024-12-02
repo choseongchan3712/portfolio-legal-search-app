@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPrec } from "../../API/api";
 import styled from "styled-components";
+import { getInterDetail } from "../../API/api";
 
 const Container = styled.div`
   padding: 80px 10px 10px 10px;
@@ -37,7 +37,7 @@ const Container = styled.div`
     }
   }
 
-  .matters {
+  .reason {
     margin-top: 10px;
     width: 100%;
     display: flex;
@@ -54,7 +54,8 @@ const Container = styled.div`
       }
     }
   }
-  .detail {
+
+  .response {
     margin-top: 10px;
     width: 100%;
     display: flex;
@@ -73,9 +74,9 @@ const Container = styled.div`
   }
 `;
 
-const PrecDetail = (): JSX.Element => {
+const InterDetail = (): JSX.Element => {
   const [pageId, setPageId] = useState<string>();
-  const [prec, setPrec] = useState<any>();
+  const [inter, setInter] = useState<any>();
   const { id } = useParams<string>();
   useEffect(() => {
     setPageId(`${id}`);
@@ -84,39 +85,34 @@ const PrecDetail = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getPrec(pageId!);
-        setPrec(response.data.PrecService);
+        const response = await getInterDetail(pageId!);
+        setInter(response.data.ExpcService);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [pageId]);
 
+
   return (
     <Container>
-      <div className="name">{prec?.사건명}</div>
-      <div className="number">사건번호: {prec?.사건번호}</div>
-      <div className="date">선고일자: {prec?.선고일자}</div>
-      <div className="reference_article">
-        참조조문: {prec?.참조조문?.replace("<br/>", "")?.replace("/", ";")}
-      </div>
-      <div className="reference_prec">
-        참조판례: {prec?.참조판례?.replace("<br/>", "")}
-      </div>
+      <div className="name">{inter?.안건명}</div>
+      <div className="number">안건번호: {inter?.안건번호}</div>
+      <div className="date">해석일자: {inter?.해석일자}</div>
       <div className="substance">
-        <span>판결요지:</span>{" "}
-        <span>{prec?.판결요지?.replace(/<br\/>/g, "")}</span>
+        <span>질의요지:</span>
+        <span>{inter?.질의요지?.replace(/<br\/>/g, "")}</span>
       </div>
-      <div className="matters">
-        <span>판시사항:</span>
-        <span>{prec?.판시사항?.replace(/<br\/>/g, "")}</span>
+      <div className="reason">
+        <span>이유</span>
+        <span>{inter?.이유?.replace(/<br\/>/g, "")}</span>
       </div>
-      <div className="detail">
-        <span>판례내용:</span>
-        <span>{prec?.판례내용?.replace(/<br\/>/g, "")}</span>
+      <div className="response">
+        <span>회답</span>
+        <span>{inter?.회답?.replace(/<br\/>/g, "")}</span>
       </div>
     </Container>
   );
 };
 
-export default PrecDetail;
+export default InterDetail;

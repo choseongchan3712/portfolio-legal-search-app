@@ -37,8 +37,6 @@ const searchPrecApi = axios.create({
   params: {
     OC: "choseongchan3712",
     type: "JSON",
-    org: "400201",
-    display: "100",
   },
 });
 
@@ -48,3 +46,30 @@ export const getPrec = (id:string) => searchPrecApi.get("", {
   },
 });
 
+const interpretationApi = axios.create({
+  baseURL:"http://www.law.go.kr/DRF/lawSearch.do?target=expc",
+  params: {
+    OC: "choseongchan3712",
+    type: "JSON",
+    display: "100",
+  },
+});
+export const getInter = (page: string) => interpretationApi.get("", {
+  params: {
+    page: page,
+  },
+});
+
+const searchInterApi = axios.create({
+  baseURL: "http://www.law.go.kr/DRF/lawService.do?target=expc",
+  params: {
+    OC: "choseongchan3712",
+    type: "JSON",
+  },
+});
+
+export const getInterDetail = (id:string) => searchInterApi.get("", {
+  params:{
+    ID: `${id}`,
+  },
+});
