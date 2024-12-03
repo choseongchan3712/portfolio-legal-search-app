@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import LawRe from "./LawRe";
 import PrecRe from "./PrecRe";
+import InterRe from "./InterRe";
 
 const Container = styled.div`
   position: relative;
@@ -18,6 +19,7 @@ const SearchRe = ({ searchValue }: SearchReType): JSX.Element => {
     <Container>
       <LawRe searchValue={searchValue}/>
       <PrecRe searchValue={searchValue} />
+      <InterRe searchValue={searchValue} />
     </Container>
   );
 };

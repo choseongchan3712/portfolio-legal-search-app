@@ -84,6 +84,12 @@ export const getInter = (page: string) =>
       page: page,
     },
   });
+  export const getInterprec = (query: string) =>
+    interpretationApi.get("", {
+      params: {
+        query: query,
+      },
+    });
 
 const searchInterApi = axios.create({
   baseURL: "http://www.law.go.kr/DRF/lawService.do?target=expc",

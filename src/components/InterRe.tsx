@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { getInterprec } from "../API/api";
 import styled from "styled-components";
-import { getLaw } from "../API/api";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -39,21 +39,21 @@ const Container = styled.div`
   }
 `;
 
-interface LawReType {
+interface InterReType {
   searchValue: string;
 }
 
-const LawRe = ({ searchValue }: LawReType): JSX.Element => {
-  const [lawData, setLawData] = useState<any>([]);
-  const [searchLawArr, setSearchLawArr] = useState<any>();
+const InterRe = ({ searchValue }: InterReType): JSX.Element => {
+  const [interData, setInterData] = useState<any>([]);
+  const [searchInterArr, setSearchInterArr] = useState<any>();
   const [isMounted, setisMounted] = useState<Boolean>(false);
 
   useEffect(() => {
     if (isMounted) {
       (async () => {
         try {
-          const response = await getLaw(searchValue);
-          setLawData(response?.data?.LawSearch?.law);
+          const response = await getInterprec(searchValue);
+          setInterData(response?.data?.Expc?.expc);
         } catch (error) {
           console.log(error);
         }
@@ -64,23 +64,25 @@ const LawRe = ({ searchValue }: LawReType): JSX.Element => {
   }, [searchValue]);
 
   useEffect(() => {
-    if (Array.isArray(lawData)) {
-      setSearchLawArr(
-        lawData?.map((data: any) => ({
-          number: data.법령ID,
-          name: data.법령명한글,
+    if (Array.isArray(interData)) {
+      setSearchInterArr(
+        interData?.map((data: any) => ({
+          number: data.법령해석례일련번호,
+          name: data.안건명,
         }))
       );
     }
-  }, [lawData]);
+  }, [interData]);
+
+  console.log(searchInterArr);
 
   return (
     <Container>
-      {searchValue && searchLawArr?.length ? (
+      {searchValue && searchInterArr?.length ? (
         <div className="wrap">
-          <div className="title">법령 검색결과</div>
-          {searchLawArr?.map((data: any, index: string) => (
-            <Link to={`/detail/${data.number}`}>
+          <div className="title">해석례 검색결과</div>
+          {searchInterArr?.map((data: any, index: string) => (
+            <Link to={`/inter_detail/${data.number}`}>
               <div className="name" key={index}>
                 {data.name}
               </div>
@@ -92,4 +94,4 @@ const LawRe = ({ searchValue }: LawReType): JSX.Element => {
   );
 };
 
-export default LawRe;
+export default InterRe;

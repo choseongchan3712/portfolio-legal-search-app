@@ -44,7 +44,7 @@ interface PrecReType {
 }
 
 const PrecRe = ({ searchValue }: PrecReType): JSX.Element => {
-  const [precData, setPrecData] = useState<any>();
+  const [precData, setPrecData] = useState<any>([]);
   const [searchPrecArr, setSearchPrecArr] = useState<any>();
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -63,21 +63,20 @@ const PrecRe = ({ searchValue }: PrecReType): JSX.Element => {
     }
   }, [searchValue]);
 
-  console.log(precData);
-
   useEffect(() => {
-    setSearchPrecArr(
-      precData?.map((data: any) => ({
-        number: data.판례일련번호,
-        name: data.사건명,
-      }))
-    );
+    if(Array.isArray(precData)) {
+      setSearchPrecArr(
+        precData?.map((data: any) => ({
+          number: data.판례일련번호,
+          name: data.사건명,
+        }))
+      );
+    }
   }, [precData]);
-  console.log(searchPrecArr);
 
   return (
     <Container>
-      {searchValue ? (
+      {searchValue && searchPrecArr?.length ? (
         <div className="wrap">
           <div className="title">판례 검색결과</div>
           {searchPrecArr?.map((data: any, index: string) => (
