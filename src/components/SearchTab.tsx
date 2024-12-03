@@ -1,6 +1,6 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -33,10 +33,20 @@ const InputWrap = styled.form`
 
 interface OnsubmitType {
   searchWord: string;
-};
+}
 
-const SearchTab = (): JSX.Element => {
-  const [search, setSearch] = useState<string>();
+interface SearchTabPropsType {
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SearchTab = ({
+  setSearchValue,
+}: SearchTabPropsType): JSX.Element => {
+  const [search, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    setSearchValue(search);
+  }, [search]);
 
   const {
     register,
@@ -49,8 +59,6 @@ const SearchTab = (): JSX.Element => {
     setSearch(data.searchWord);
     reset();
   };
-
-  console.log(search);
 
   return (
     <InputWrap onSubmit={handleSubmit(onSubmit)}>

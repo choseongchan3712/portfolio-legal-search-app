@@ -8,12 +8,30 @@ const lawApi = axios.create({
   },
 });
 
+
 export const getLawId = (id: string) =>
   lawApi.get("", {
     params: {
       ID: id,
     },
   });
+  
+
+  const searchLawApi = axios.create({
+    baseURL: "http://www.law.go.kr/DRF/lawSearch.do?target=law",
+    params: {
+      OC: "choseongchan3712",
+      type: "JSON",
+      display: "100",
+    },
+  });
+  
+  export const getLaw = (query:string) => searchLawApi.get("", {
+    params:{
+      query: query,
+    },
+  });
+
 
 const precedentApi = axios.create({
   baseURL: "http://www.law.go.kr/DRF/lawSearch.do?target=prec",

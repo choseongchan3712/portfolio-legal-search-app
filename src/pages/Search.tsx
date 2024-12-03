@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import SearchTab from "../components/SearchTab";
+import SearchRe from "../components/SearchRe";
+import { useState } from "react";
 
 const Container = styled.div`
   position: relative;
@@ -13,9 +15,14 @@ const Container = styled.div`
 `;
 
 const Search = (): JSX.Element => {
+  const [searchValue, setSearchValue] = useState<string>('');
+
+  
+
   return (
     <Container>
-      <SearchTab />
+      <SearchTab setSearchValue={setSearchValue}/>
+      <SearchRe searchValue={searchValue}/>
     </Container>
   );
 };
