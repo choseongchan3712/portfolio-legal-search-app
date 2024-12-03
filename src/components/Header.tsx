@@ -5,7 +5,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -48,17 +48,25 @@ const theme = createTheme({
 
 const Header = (): JSX.Element => {
   const [value, setValue] = useState<number>(0);
+  const location = useLocation();
+  const nowLocation:string = location.pathname;
 
   useEffect(()=>{
-    const getValue = localStorage.getItem('value');
-    if (getValue !== null) {
-      setValue(Number(getValue));
+    if(nowLocation.includes("/law") || nowLocation.includes("/detail")){
+      setValue(0);
+    } else if (nowLocation.includes("/precedent") || nowLocation.includes("/prec_detail")) {
+      setValue(1);
+    } else if (nowLocation.includes("/interpretation") || nowLocation.includes("/inter_detail")) {
+      setValue(2);
+    } else if (nowLocation.includes("/search")) {
+      setValue(3);
     }
   }, []);
+  
+
 
   const changeHandler = (event: React.SyntheticEvent, newValue:number) => {
     setValue(newValue);
-    localStorage.setItem('value', String(newValue));
   };
 
   return (
