@@ -15,14 +15,12 @@ const Container = styled.div`
 `;
 
 const Search = (): JSX.Element => {
-  const [searchValue, setSearchValue] = useState<string>('');
-
-  
+  const [searchValue, setSearchValue] = useState<string>("");
 
   return (
     <Container>
-      <SearchTab setSearchValue={setSearchValue}/>
-      <SearchRe searchValue={searchValue}/>
+      <SearchTab setSearchValue={setSearchValue} />
+      <SearchRe searchValue={searchValue} />
     </Container>
   );
 };

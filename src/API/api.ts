@@ -8,30 +8,28 @@ const lawApi = axios.create({
   },
 });
 
-
 export const getLawId = (id: string) =>
   lawApi.get("", {
     params: {
       ID: id,
     },
   });
-  
 
-  const searchLawApi = axios.create({
-    baseURL: "http://www.law.go.kr/DRF/lawSearch.do?target=law",
+const searchLawApi = axios.create({
+  baseURL: "http://www.law.go.kr/DRF/lawSearch.do?target=law",
+  params: {
+    OC: "choseongchan3712",
+    type: "JSON",
+    display: "100",
+  },
+});
+
+export const getLaw = (query: string) =>
+  searchLawApi.get("", {
     params: {
-      OC: "choseongchan3712",
-      type: "JSON",
-      display: "100",
-    },
-  });
-  
-  export const getLaw = (query:string) => searchLawApi.get("", {
-    params:{
       query: query,
     },
   });
-
 
 const precedentApi = axios.create({
   baseURL: "http://www.law.go.kr/DRF/lawSearch.do?target=prec",
@@ -50,6 +48,13 @@ export const getPrecedent = (page: string) =>
     },
   });
 
+export const getSearchprec = (query: string) =>
+  precedentApi.get("", {
+    params: {
+      query: query,
+    },
+  });
+
 const searchPrecApi = axios.create({
   baseURL: "http://www.law.go.kr/DRF/lawService.do?target=prec",
   params: {
@@ -58,25 +63,27 @@ const searchPrecApi = axios.create({
   },
 });
 
-export const getPrec = (id:string) => searchPrecApi.get("", {
-  params:{
-    ID: `${id}`,
-  },
-});
+export const getPrec = (id: string) =>
+  searchPrecApi.get("", {
+    params: {
+      ID: `${id}`,
+    },
+  });
 
 const interpretationApi = axios.create({
-  baseURL:"http://www.law.go.kr/DRF/lawSearch.do?target=expc",
+  baseURL: "http://www.law.go.kr/DRF/lawSearch.do?target=expc",
   params: {
     OC: "choseongchan3712",
     type: "JSON",
     display: "100",
   },
 });
-export const getInter = (page: string) => interpretationApi.get("", {
-  params: {
-    page: page,
-  },
-});
+export const getInter = (page: string) =>
+  interpretationApi.get("", {
+    params: {
+      page: page,
+    },
+  });
 
 const searchInterApi = axios.create({
   baseURL: "http://www.law.go.kr/DRF/lawService.do?target=expc",
@@ -86,8 +93,9 @@ const searchInterApi = axios.create({
   },
 });
 
-export const getInterDetail = (id:string) => searchInterApi.get("", {
-  params:{
-    ID: `${id}`,
-  },
-});
+export const getInterDetail = (id: string) =>
+  searchInterApi.get("", {
+    params: {
+      ID: `${id}`,
+    },
+  });

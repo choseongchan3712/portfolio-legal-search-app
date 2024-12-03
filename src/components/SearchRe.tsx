@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import LawRe from "./LawRe";
+import PrecRe from "./PrecRe";
 
 const Container = styled.div`
   position: relative;
-  min-width: 1400px;
-  height: calc(100vh - 140px);
+  max-width: 1400px;
+  width: 100%;
   padding-top: 10px;
 `;
 
@@ -16,6 +17,7 @@ const SearchRe = ({ searchValue }: SearchReType): JSX.Element => {
   return (
     <Container>
       <LawRe searchValue={searchValue}/>
+      <PrecRe searchValue={searchValue} />
     </Container>
   );
 };
