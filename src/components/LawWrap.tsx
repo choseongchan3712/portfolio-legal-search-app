@@ -95,7 +95,7 @@ const LawWrap = ({id}:IdProps): JSX.Element => {
     장: /제\d+장/.test(조문내용) ? `${조문내용}` : null,
     절: /제\d+절/.test(조문내용) ? `${조문내용}` : null,
     관: /제\d+관/.test(조문내용) ? `${조문내용}` : null,
-    조: /제\d+조/.test(조문내용) ? `${조문내용}.`.match(/제\d+조/) : null,
+    조: /제\d+조/.test(조문내용) ? `${조문내용}`.match(/제\d+조/) : null,
     조문: /제\d+조/.test(조문내용)
       ? `${조문내용}`.replace(/제\d+조/, "").trim()
       : null,
@@ -118,7 +118,7 @@ const LawWrap = ({id}:IdProps): JSX.Element => {
             {data.장 ? <div className="chapter">{data.장}</div> : null}
             {data.절 ? <div className="verse">{data.절}</div> : null}
             {data.관 ? <div className="section">{data.관}</div> : null}
-            {data.조 ? <div className="article">{data.조}</div> : null}
+            {data.조 ? <div className="article">{data.조[0]}</div> : null}
             {data.조문 ? (
               <div className="article_detail">{data.조문}</div>
             ) : null}
