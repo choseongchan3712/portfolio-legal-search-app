@@ -5,26 +5,80 @@ const Container = styled.div`
   position: relative;
   z-index: 0;
   width: 100%;
-  height: 100vh;
-  padding: 80px 10px 10px 10px;
+  min-height: 100vh;
+  padding: 90px 20px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: 85px 15px 15px;
+    gap: 15px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    padding: 80px 12px 12px;
+    gap: 12px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    padding: 75px 10px 10px;
+    gap: 10px;
+  }
+
   .contents {
-    border: 1px solid #000;
-    border-radius: 20px;
-    a{
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    aspect-ratio: 1.2;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(120, 116, 241, 0.15);
+    }
+
+    a {
       text-decoration: none;
-      color: #000;
+      color: #333;
       display: flex;
       width: 100%;
       height: 100%;
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: 25px;
-      font-weight: 900;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 20px;
+      background: linear-gradient(135deg, #fff 0%, #f8f8ff 100%);
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #7874f1;
+        background: linear-gradient(135deg, #fff 0%, #f0f0ff 100%);
+      }
+
+      @media (max-width: 1200px) {
+        font-size: 18px;
+        padding: 15px;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 14px;
+        padding: 10px;
+      }
     }
   }
 `;
