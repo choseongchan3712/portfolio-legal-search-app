@@ -3,6 +3,7 @@ import { getPrecedent } from "../API/api";
 import styled from "styled-components";
 import { Pagination } from "@mui/material";
 import PrecedentWrap from "../components/PrecedentWrap";
+import Loading from "../components/Loading";
 
 const Container = styled.div`
   position: relative;
@@ -41,15 +42,13 @@ const Precedent = (): JSX.Element => {
     setPage(Math.ceil(parseFloat(precedent?.totalCnt) / 100));
   }, [precedent]);
 
-  
-
   const changeHandler = (e: React.ChangeEvent<unknown>, value: number) => {
     setNowPage(value);
   };
 
-  return (
+  return precedent ? (
     <Container>
-      <PrecedentWrap precedent={precedent}/>
+      <PrecedentWrap precedent={precedent} />
       <Pagination
         count={page}
         page={nowPage}
@@ -58,6 +57,8 @@ const Precedent = (): JSX.Element => {
         boundaryCount={2}
       />
     </Container>
+  ) : (
+    <Loading />
   );
 };
 

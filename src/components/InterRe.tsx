@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getInterprec } from "../API/api";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { RingLoader } from "react-spinners";
 
 const Container = styled.div`
   width: 100%;
@@ -20,7 +21,7 @@ const Container = styled.div`
       font-size: 20px;
       font-weight: 700;
     }
-    a{
+    a {
       text-decoration: none;
       color: #000;
       display: block;
@@ -47,6 +48,7 @@ const InterRe = ({ searchValue }: InterReType): JSX.Element => {
   const [interData, setInterData] = useState<any>([]);
   const [searchInterArr, setSearchInterArr] = useState<any>();
   const [isMounted, setisMounted] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (isMounted) {
@@ -54,6 +56,7 @@ const InterRe = ({ searchValue }: InterReType): JSX.Element => {
         try {
           const response = await getInterprec(searchValue);
           setInterData(response?.data?.Expc?.expc);
+          setLoading(false);
         } catch (error) {
           console.log(error);
         }
@@ -72,11 +75,12 @@ const InterRe = ({ searchValue }: InterReType): JSX.Element => {
         }))
       );
     }
+    setLoading(true);
   }, [interData]);
 
   console.log(searchInterArr);
 
-  return (
+  return loading ? (
     <Container>
       {searchValue && searchInterArr?.length ? (
         <div className="wrap">
@@ -90,6 +94,20 @@ const InterRe = ({ searchValue }: InterReType): JSX.Element => {
           ))}
         </div>
       ) : null}
+    </Container>
+  ) : (
+    <Container>
+      <div
+        className="wrap"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div className="title">해석례 검색결과</div>
+        <RingLoader color="#7874f1" size={100} />
+      </div>
     </Container>
   );
 };

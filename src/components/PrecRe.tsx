@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSearchprec } from "../API/api";
 import { Link } from "react-router-dom";
+import { RingLoader } from "react-spinners";
 
 const Container = styled.div`
   width: 100%;
@@ -47,6 +48,7 @@ const PrecRe = ({ searchValue }: PrecReType): JSX.Element => {
   const [precData, setPrecData] = useState<any>([]);
   const [searchPrecArr, setSearchPrecArr] = useState<any>();
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (isMounted) {
@@ -54,6 +56,7 @@ const PrecRe = ({ searchValue }: PrecReType): JSX.Element => {
         try {
           const response = await getSearchprec(searchValue);
           setPrecData(response?.data?.PrecSearch?.prec);
+          setLoading(false);
         } catch (error) {
           console.log(error);
         }
@@ -64,7 +67,7 @@ const PrecRe = ({ searchValue }: PrecReType): JSX.Element => {
   }, [searchValue]);
 
   useEffect(() => {
-    if(Array.isArray(precData)) {
+    if (Array.isArray(precData)) {
       setSearchPrecArr(
         precData?.map((data: any) => ({
           number: data.판례일련번호,
@@ -72,9 +75,10 @@ const PrecRe = ({ searchValue }: PrecReType): JSX.Element => {
         }))
       );
     }
+    setLoading(true);
   }, [precData]);
 
-  return (
+  return loading ? (
     <Container>
       {searchValue && searchPrecArr?.length ? (
         <div className="wrap">
@@ -88,6 +92,20 @@ const PrecRe = ({ searchValue }: PrecReType): JSX.Element => {
           ))}
         </div>
       ) : null}
+    </Container>
+  ) : (
+    <Container>
+      <div
+        className="wrap"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div className="title">판례 검색결과</div>
+        <RingLoader color="#7874f1" size={100} />
+      </div>
     </Container>
   );
 };

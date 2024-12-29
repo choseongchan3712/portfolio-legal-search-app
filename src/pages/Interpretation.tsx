@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { getInter } from "../API/api";
 import { Pagination } from "@mui/material";
 import InterWrap from "../components/InterWrap";
+import Loading from "../components/Loading";
 
 const Container = styled.div`
-position: relative;
+  position: relative;
   z-index: 0;
   width: 100%;
   min-height: 100vh;
@@ -21,25 +22,23 @@ position: relative;
   }
 `;
 
-const Interpretation =():JSX.Element =>{
+const Interpretation = (): JSX.Element => {
   const [inter, setInter] = useState<any>();
   const [page, setPage] = useState<number>();
   const [nowPage, setNowPage] = useState<number>(1);
 
-  useEffect(()=>{
-    (
-      async () =>{
-        try {
-          const response = await getInter(`${nowPage}`);
-          setInter(response.data?.Expc);
-        } catch (error) {
-          console.log(error);
-        }
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getInter(`${nowPage}`);
+        setInter(response.data?.Expc);
+      } catch (error) {
+        console.log(error);
       }
-    )();
+    })();
   }, [nowPage]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setPage(Math.ceil(parseFloat(inter?.totalCnt) / 100));
   }, [inter]);
 
@@ -47,16 +46,20 @@ const Interpretation =():JSX.Element =>{
     setNowPage(value);
   };
 
-  return <Container>
-    <InterWrap inter={inter}/>
-    <Pagination
+  return inter ? (
+    <Container>
+      <InterWrap inter={inter} />
+      <Pagination
         count={page}
         page={nowPage}
         onChange={changeHandler}
         siblingCount={3}
         boundaryCount={2}
       />
-  </Container>;
+    </Container>
+  ) : (
+    <Loading />
+  );
 };
 
 export default Interpretation;

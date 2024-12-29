@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getLaw } from "../API/api";
 import { Link } from "react-router-dom";
+import { RingLoader } from "react-spinners";
 
 const Container = styled.div`
   width: 100%;
@@ -20,7 +21,7 @@ const Container = styled.div`
       font-size: 20px;
       font-weight: 700;
     }
-    a{
+    a {
       text-decoration: none;
       color: #000;
       display: block;
@@ -47,6 +48,7 @@ const LawRe = ({ searchValue }: LawReType): JSX.Element => {
   const [lawData, setLawData] = useState<any>([]);
   const [searchLawArr, setSearchLawArr] = useState<any>();
   const [isMounted, setisMounted] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (isMounted) {
@@ -54,6 +56,7 @@ const LawRe = ({ searchValue }: LawReType): JSX.Element => {
         try {
           const response = await getLaw(searchValue);
           setLawData(response?.data?.LawSearch?.law);
+          setLoading(false);
         } catch (error) {
           console.log(error);
         }
@@ -72,9 +75,10 @@ const LawRe = ({ searchValue }: LawReType): JSX.Element => {
         }))
       );
     }
+    setLoading(true);
   }, [lawData]);
 
-  return (
+  return loading ? (
     <Container>
       {searchValue && searchLawArr?.length ? (
         <div className="wrap">
@@ -88,6 +92,20 @@ const LawRe = ({ searchValue }: LawReType): JSX.Element => {
           ))}
         </div>
       ) : null}
+    </Container>
+  ) : (
+    <Container>
+      <div
+        className="wrap"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div className="title">법령 검색결과</div>
+        <RingLoader color="#7874f1" size={100} />
+      </div>
     </Container>
   );
 };

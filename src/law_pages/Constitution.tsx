@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getLawId } from "../API/api";
-import Loading from "./Loading";
+// import { getConstitution } from "../API/api";
 
 const Container = styled.div`
   width: 100%;
@@ -68,58 +67,59 @@ const Container = styled.div`
     font-size: 16px;
     font-weight: 700;
   }
+  
 `;
 
-interface IdProps {
-  id: string;
-}
+const Constitution = (): JSX.Element => {
+  // const [constitution, setConstitution] = useState<any>();
 
-const LawWrap = ({ id }: IdProps): JSX.Element => {
-  const [law, setlaw] = useState<any>();
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await getConstitution();
+  //       setConstitution(response.data.법령);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, []);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await getLawId(id);
-        setlaw(response.data.법령);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+  // const lawName: string = constitution?.기본정보?.법령명_한글; // !법명
 
-  const lawName: string = law?.기본정보?.법령명_한글;
+  // const lawArticle = constitution?.조문?.조문단위;
 
-  const needArticle = law?.조문?.조문단위;
+  // const needArticle = lawArticle?.slice(3);
+  // console.log(needArticle);
 
-  const newLawArr = needArticle?.map(({ 조문내용, 항 }: any) => ({
-    장: /제\d+장/.test(조문내용) ? `${조문내용}` : null,
-    절: /제\d+절/.test(조문내용) ? `${조문내용}` : null,
-    관: /제\d+관/.test(조문내용) ? `${조문내용}` : null,
-    조: /제\d+조/.test(조문내용) ? `${조문내용}`.match(/제\d+조/) : null,
-    조문: /제\d+조/.test(조문내용)
-      ? `${조문내용}`.replace(/제\d+조/, "").trim()
-      : null,
-    항:
-      Array.isArray(항) && 항
-        ? 항.map((data: any) => ({
-            항내용: `${data.항내용}`,
-            호: data.호 ?? `${data.호}`,
-          }))
-        : null,
-    호: 항 && 항.호 ? 항.호.map((data: any) => `${data.호내용}`) || null : null,
-  }));
+  // const newLawArr = needArticle?.map(({ 조문내용, 항 }: any) => ({
+  //   장: /제\d+장/.test(조문내용) ? `${조문내용}` : null,
+  //   절: /제\d+절/.test(조문내용) ? `${조문내용}` : null,
+  //   관: /제\d+관/.test(조문내용) ? `${조문내용}` : null,
+  //   조: /제\d+조/.test(조문내용) ? `${조문내용}.`.match(/제\d+조/) : null,
+  //   조문: /제\d+조/.test(조문내용)
+  //     ? `${조문내용}`.replace(/제\d+조/, "").trim()
+  //     : null,
+  //   항:
+  //     Array.isArray(항) && 항
+  //       ? 항.map((data: any) => ({
+  //           항내용: `${data.항내용}`,
+  //           호: data.호 ?? `${data.호}`,
+  //         }))
+  //       : null,
+  //   호: 항 && 항.호 ? 항.호.map((data: any) => `${data.호내용}`) || null : null,
+  // }));
+  // console.log(newLawArr);
 
-  return law ? (
+  return (
     <Container>
-      <div className="law_name">{lawName}</div>
+      {/* <div className="law_name">{lawName}</div>
       <div className="detail_wrap">
         {newLawArr?.map((data: any, index: number) => (
           <div key={index}>
             {data.장 ? <div className="chapter">{data.장}</div> : null}
             {data.절 ? <div className="verse">{data.절}</div> : null}
             {data.관 ? <div className="section">{data.관}</div> : null}
-            {data.조 ? <div className="article">{data.조[0]}</div> : null}
+            {data.조 ? <div className="article">{data.조}</div> : null}
             {data.조문 ? (
               <div className="article_detail">{data.조문}</div>
             ) : null}
@@ -146,11 +146,9 @@ const LawWrap = ({ id }: IdProps): JSX.Element => {
               : null}
           </div>
         ))}
-      </div>
+      </div> */}
     </Container>
-  ) : (
-    <Loading />
   );
 };
 
-export default LawWrap;
+export default Constitution;

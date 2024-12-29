@@ -42,3 +42,4 @@
 # 8. 팁
 - (1) 법령 API: 국가법령정보 공동활용
 - (2) 유용한 리액트 디자인 툴: MUI
+- (3) ip 찾기: https://law-server-fwx3.onrender.com/ip
