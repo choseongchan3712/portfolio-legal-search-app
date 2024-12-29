@@ -2,6 +2,7 @@ import styled from "styled-components";
 import SearchTab from "../components/SearchTab";
 import SearchRe from "../components/SearchRe";
 import { useState } from "react";
+import PageTitle from "../components/PageTitle";
 
 const Container = styled.div`
   position: relative;
@@ -18,10 +19,13 @@ const Search = (): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>("");
 
   return (
-    <Container>
-      <SearchTab setSearchValue={setSearchValue} />
-      <SearchRe searchValue={searchValue} />
-    </Container>
+    <>
+    <PageTitle title="조회하기"/>
+      <Container>
+        <SearchTab setSearchValue={setSearchValue} />
+        <SearchRe searchValue={searchValue} />
+      </Container>
+    </>
   );
 };
 

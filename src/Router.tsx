@@ -7,6 +7,7 @@ import Search from "./pages/Search";
 import Detail from "./pages/detail/Detail";
 import PrecDetail from "./pages/detail/PrecDetail";
 import InterDetail from "./pages/detail/InterDetail";
+import PageNotFound from "./pages/PageNotFound";
 
 const Router = (): JSX.Element => {
   return (
@@ -21,6 +22,7 @@ const Router = (): JSX.Element => {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/prec_detail/:id" element={<PrecDetail />} />
         <Route path="/inter_detail/:id" element={<InterDetail />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>
   );

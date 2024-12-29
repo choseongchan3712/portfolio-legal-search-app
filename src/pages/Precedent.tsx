@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Pagination } from "@mui/material";
 import PrecedentWrap from "../components/PrecedentWrap";
 import Loading from "../components/Loading";
+import PageTitle from "../components/PageTitle";
 
 const Container = styled.div`
   position: relative;
@@ -47,16 +48,19 @@ const Precedent = (): JSX.Element => {
   };
 
   return precedent ? (
-    <Container>
-      <PrecedentWrap precedent={precedent} />
-      <Pagination
-        count={page}
-        page={nowPage}
-        onChange={changeHandler}
-        siblingCount={3}
-        boundaryCount={2}
-      />
-    </Container>
+    <>
+    <PageTitle title="판례"/>
+      <Container>
+        <PrecedentWrap precedent={precedent} />
+        <Pagination
+          count={page}
+          page={nowPage}
+          onChange={changeHandler}
+          siblingCount={3}
+          boundaryCount={2}
+        />
+      </Container>
+    </>
   ) : (
     <Loading />
   );

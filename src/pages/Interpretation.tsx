@@ -4,6 +4,7 @@ import { getInter } from "../API/api";
 import { Pagination } from "@mui/material";
 import InterWrap from "../components/InterWrap";
 import Loading from "../components/Loading";
+import PageTitle from "../components/PageTitle";
 
 const Container = styled.div`
   position: relative;
@@ -47,16 +48,19 @@ const Interpretation = (): JSX.Element => {
   };
 
   return inter ? (
-    <Container>
-      <InterWrap inter={inter} />
-      <Pagination
-        count={page}
-        page={nowPage}
-        onChange={changeHandler}
-        siblingCount={3}
-        boundaryCount={2}
-      />
-    </Container>
+    <>
+    <PageTitle title="해석례"/>
+      <Container>
+        <InterWrap inter={inter} />
+        <Pagination
+          count={page}
+          page={nowPage}
+          onChange={changeHandler}
+          siblingCount={3}
+          boundaryCount={2}
+        />
+      </Container>
+    </>
   ) : (
     <Loading />
   );
