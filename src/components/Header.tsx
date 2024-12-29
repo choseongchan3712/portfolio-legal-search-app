@@ -15,6 +15,17 @@ const Container = styled.div`
   left: 0;
   width: 100%;
   height: 70px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+  @media (max-width: 768px) {
+    height: 60px;
+  }
+
+  @media (max-width: 480px) {
+    height: 55px;
+  }
 `;
 
 const theme = createTheme({
@@ -24,6 +35,7 @@ const theme = createTheme({
         root: {
           width: "100%",
           height: "100%",
+          backgroundColor: "transparent",
         },
       },
     },
@@ -32,13 +44,29 @@ const theme = createTheme({
         root: {
           width: "calc(100% / 4)",
           height: "100%",
-          backgroundColor: "#eee",
+          backgroundColor: "transparent",
           minWidth: "none",
           maxWidth: "none",
           color: "#8f8f8f",
+          transition: "all 0.3s ease",
+          fontSize: "16px",
           "&.Mui-selected": {
-            color: "#fff",
-            backgroundColor: "#7874f1",
+            color: "#7874f1",
+            backgroundColor: "rgba(120, 116, 241, 0.1)",
+            fontWeight: "600",
+          },
+          "&:hover": {
+            backgroundColor: "rgba(120, 116, 241, 0.05)",
+          },
+          "@media (max-width: 768px)": {
+            "& .MuiBottomNavigationAction-label": {
+              fontSize: "14px",
+            },
+          },
+          "@media (max-width: 480px)": {
+            "& .MuiBottomNavigationAction-label": {
+              fontSize: "13px",
+            },
           },
         },
       },
